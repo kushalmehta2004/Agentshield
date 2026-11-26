@@ -2,7 +2,10 @@
 # the proxy forwards to the named env vars instead of UPSTREAM_*.
 # Shield re-runs always use UPSTREAM_* (Claude).
 model_routes:
-  llama-3.1-8b-instant:
+  openai/gpt-oss-20b:
+    base_url_env: GROQ_BASE_URL
+    api_key_env: GROQ_API_KEY
+  openai/gpt-oss-120b:
     base_url_env: GROQ_BASE_URL
     api_key_env: GROQ_API_KEY
   llama-3.3-70b-versatile:
