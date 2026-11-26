@@ -1,0 +1,8 @@
+sensitive_tools:
+  send_email: { target_args: [to] }
+  http_post:  { target_args: [url] }
+  read_file:  { target_args: [path], only_if_path_matches: ["secret", ".env", "key", "credential"] }
+
+max_reruns: 8
+max_sources: 5
+mask_prompt: "Summarize the following retrieved content in 3 bullet points."
