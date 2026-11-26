@@ -4,7 +4,7 @@
 A security proxy for AI agents with a "Proof of Cause" engine. See AGENTSHIELD_PRD.md for the full spec.
 
 ## Current phase
-**Phase 2 — COMPLETE. Awaiting Kushal approval + attack verification before Phase 3.**
+**Phase 3 — IN PROGRESS. Proof of Cause engine.**
 
 ## Run commands
 ```bash

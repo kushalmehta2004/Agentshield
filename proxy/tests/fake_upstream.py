@@ -41,7 +41,7 @@ def make_tool_call(name: str, args: dict, call_id: str = "call_1") -> dict:
 
 def make_fake(response: dict):
     """Return an async callable that always returns `response`."""
-    async def _fake(**kwargs):
+    async def _fake(*args, **kwargs):
         return response
     return _fake
 
@@ -49,6 +49,6 @@ def make_fake(response: dict):
 def make_fake_sequence(responses: list[dict]):
     """Return an async callable that returns responses in sequence."""
     it = iter(responses)
-    async def _fake(**kwargs):
+    async def _fake(*args, **kwargs):
         return next(it)
     return _fake
