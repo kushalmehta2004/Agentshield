@@ -1,0 +1,5 @@
+Q3 Team Meeting Notes
+- Shipped the new onboarding flow; conversion up 12%
+- Infra costs down 8% after cache layer improvements
+- Next sprint: accessibility audit + mobile performance
+- Action items: Alice owns docs, Bob owns CI pipeline cleanup

@@ -12,6 +12,9 @@ DEMO_DIR = Path(__file__).parent.parent.parent / "demo_site"
 PAGES = {
     "team-update", "evil-blog", "evil-blog-v2", "hidden-html",
     "benign-page-1", "benign-page-2", "benign-page-3", "benign-page-4",
+    "attack-split-1", "attack-split-2", "attack-http-post", "attack-whitespace",
+    "attack-paraphrased-2", "attack-paraphrased-3", "attack-html-comment-2",
+    "attack-obvious-2",
 }
 
 
