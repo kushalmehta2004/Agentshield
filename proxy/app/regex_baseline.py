@@ -10,13 +10,13 @@ _PATTERNS = [
     r"new\s+system\s+prompt",
     r"override\s+.*\s+instructions",
     r"task\s+override",
-    r"execute\s+(the\s+)?following\s+(instructions|commands|workflow)",
+    r"execute\s+(the\s+)?following\s+(instructions|commands)",
     r"ai\s+assistant\s+instruction",
     r"<\!--.*?(instruction|execute|forward|send|read).*?-->",
-    r"as\s+part\s+of\s+(our|the)\s+(standard\s+)?(content\s+)?(audit|processing|distribution)",
-    r"data\s+processing\s+agreement",
-    r"workflow\s+step\s+for\s+ai",
-    r"embedded\s+content\s+audit",
+    r"prompt\s+injection",
+    r"jailbreak",
+    r"do\s+not\s+follow\s+your\s+original",
+    r"your\s+(real|true|actual)\s+instructions",
 ]
 
 _COMPILED = [re.compile(p, re.IGNORECASE | re.DOTALL) for p in _PATTERNS]
