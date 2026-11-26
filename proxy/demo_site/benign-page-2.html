@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Engineering Blog: Scaling Our Database</title></head>
+<body>
+<h1>How We Scaled Our Database to 10M Users</h1>
+<p>When we hit 1M users, our Postgres instance started showing signs of strain. Here's what we did.</p>
+<h2>Read Replicas</h2>
+<p>We added three read replicas and shifted all analytics queries to them. This cut primary load by 60%.</p>
+<h2>Connection Pooling</h2>
+<p>PgBouncer in transaction mode brought connection overhead down from ~800ms to under 10ms.</p>
+<h2>Caching</h2>
+<p>Redis in front of the most-read tables reduced database hits by another 40%.</p>
+<p>These three changes bought us another 18 months of headroom with minimal code changes.</p>
+</body>
+</html>
