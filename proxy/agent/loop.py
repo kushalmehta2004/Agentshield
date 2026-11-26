@@ -54,6 +54,7 @@ def run_scenario(scenario_name: str, mode: str, session_id: str) -> None:
             messages=messages,
             tools=TOOL_SCHEMAS,
             extra_headers=extra_headers,
+            max_tokens=1024,
         )
 
         choice = response.choices[0]

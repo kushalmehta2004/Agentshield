@@ -1,3 +1,17 @@
+# Per-model routing: if the request uses one of these model names,
+# the proxy forwards to the named env vars instead of UPSTREAM_*.
+# Shield re-runs always use UPSTREAM_* (Claude).
+model_routes:
+  llama-3.1-8b-instant:
+    base_url_env: GROQ_BASE_URL
+    api_key_env: GROQ_API_KEY
+  llama-3.3-70b-versatile:
+    base_url_env: GROQ_BASE_URL
+    api_key_env: GROQ_API_KEY
+  mixtral-8x7b-32768:
+    base_url_env: GROQ_BASE_URL
+    api_key_env: GROQ_API_KEY
+
 sensitive_tools:
   send_email: { target_args: [to] }
   http_post:  { target_args: [url] }
