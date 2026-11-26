@@ -11,7 +11,7 @@ from pathlib import Path
 
 # Load .env from repo root
 from dotenv import load_dotenv
-load_dotenv(Path(__file__).parent.parent / ".env")
+load_dotenv(Path(__file__).parent.parent.parent / ".env")
 
 from agent.scenarios import SCENARIOS
 from agent.loop import run_scenario

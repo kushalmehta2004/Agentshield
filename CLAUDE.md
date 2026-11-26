@@ -17,7 +17,7 @@ cd proxy && uv run pytest
 # Dashboard
 cd dashboard && npm run dev
 
-# Agent
+# Agent (run from proxy/)
 cd proxy && uv run python -m agent.run --scenario benign_summary_email --mode shield
 ```
 
