@@ -8,6 +8,8 @@ __pycache__/
 .uv/
 node_modules/
 .next/
+dashboard/.next/
+dashboard/node_modules/
 *.egg-info/
 dist/
 .pytest_cache/
