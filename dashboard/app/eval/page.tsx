@@ -40,6 +40,11 @@ export default function EvalPage() {
       const res = await fetch(`${PROXY_URL}/api/eval/run?mode=${mode}`, { method: "POST" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
+      if (data.stub) {
+        setError("Eval suite not yet implemented (Phase 5). Run scenarios from the Demo page first.");
+        setRunning(null);
+        return;
+      }
       // Poll for result
       const evalId = data.eval_run_id;
       const poll = setInterval(async () => {
@@ -50,6 +55,8 @@ export default function EvalPage() {
           setRunning(null);
         }
       }, 2000);
+      // Safety timeout — stop spinning after 2 minutes
+      setTimeout(() => { clearInterval(poll); setRunning(null); }, 120_000);
     } catch (e) {
       setError(String(e));
       setRunning(null);

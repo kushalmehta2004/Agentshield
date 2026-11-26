@@ -29,7 +29,10 @@ async def run_scenario(name: str, mode: str = "shield"):
     if name not in SCENARIOS:
         raise HTTPException(status_code=404, detail=f"Scenario '{name}' not found.")
     session_id = str(uuid.uuid4())
-    # Run in background so the HTTP response returns immediately
+    # Pre-create the session row so the dashboard can navigate to it immediately
+    from app import logger as db
+    db.log_session(session_id, name, mode)
+    # Run agent in background so the HTTP response returns immediately
     asyncio.create_task(_run_bg(name, mode, session_id))
     return {"session_id": session_id, "scenario": name, "mode": mode}
 
