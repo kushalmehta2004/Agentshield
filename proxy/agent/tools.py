@@ -7,6 +7,9 @@ http_post   — fake: writes to Supabase outbox
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent.parent.parent / ".env")
 
 import httpx
 
@@ -47,16 +50,33 @@ def read_file(path: str) -> str:
     return target.read_text(encoding="utf-8")
 
 
+def _sync_outbox(session_id: str, kind: str, payload: dict) -> None:
+    """Write directly to Supabase outbox — synchronous, no event loop needed."""
+    import os
+    from supabase import create_client
+    url = os.getenv("SUPABASE_URL", "")
+    key = os.getenv("SUPABASE_SERVICE_KEY", "")
+    if url and key:
+        try:
+            client = create_client(url, key)
+            client.table("outbox").insert({
+                "session_id": session_id,
+                "kind": kind,
+                "payload": payload,
+            }).execute()
+        except Exception as e:
+            import logging
+            logging.getLogger("agentshield.tools").warning("outbox insert failed: %s", e)
+
+
 def send_email(to: str, subject: str, body: str, session_id: str = "") -> str:
-    from app import logger as db
-    db.log_outbox(session_id, "email", {"to": to, "subject": subject, "body": body})
-    return f"[FAKE] Email queued to {to} — subject: {subject}"
+    _sync_outbox(session_id, "email", {"to": to, "subject": subject, "body": body})
+    return f"[FAKE] Email sent to {to} — subject: {subject}"
 
 
 def http_post(url: str, body: str, session_id: str = "") -> str:
-    from app import logger as db
-    db.log_outbox(session_id, "http_post", {"url": url, "body": body})
-    return f"[FAKE] POST queued to {url}"
+    _sync_outbox(session_id, "http_post", {"url": url, "body": body})
+    return f"[FAKE] POST sent to {url}"
 
 
 TOOL_SCHEMAS = [
