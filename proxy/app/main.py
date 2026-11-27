@@ -7,9 +7,10 @@ load_dotenv()
 
 app = FastAPI(title="AgentShield Proxy")
 
+_origins = [o.strip() for o in os.getenv("DASHBOARD_ORIGIN", "http://localhost:3000").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("DASHBOARD_ORIGIN", "http://localhost:3000")],
+    allow_origins=_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
