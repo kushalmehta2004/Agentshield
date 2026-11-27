@@ -16,22 +16,17 @@ async def run_eval(mode: str = "shield"):
 
 
 async def _run_bg(mode: str, eval_run_id: str):
-    import sys
-    from pathlib import Path
-    # Ensure eval package is importable
-    repo_root = Path(__file__).parent.parent.parent.parent
-    if str(repo_root) not in sys.path:
-        sys.path.insert(0, str(repo_root))
-
+    log.info("Eval %s starting mode=%s", eval_run_id, mode)
     try:
         await asyncio.to_thread(_run_sync, mode, eval_run_id)
     except Exception as e:
-        log.error("Eval run %s failed: %s", eval_run_id, e)
+        log.error("Eval run %s failed: %s", eval_run_id, e, exc_info=True)
 
 
 def _run_sync(mode: str, eval_run_id: str):
-    from eval.runner import run_all, _get_supabase, _write_eval_run
-    summaries = run_all([mode])
+    # eval/ lives at proxy/eval/ so it's importable directly
+    from eval.runner import run_all
+    run_all([mode])
     # Patch eval_run_id into the written row (best-effort: re-update with the id)
     # The row was already inserted by run_all; tag it if possible
     if mode in summaries:
